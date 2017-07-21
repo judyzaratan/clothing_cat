@@ -24,8 +24,15 @@ def catalogCategories():
         print item.name, item.category.name
     for item in catalog:
         print item.name
-    return render_template('catalog.html')
+    return render_template('catalog.html', catalog=catalog)
 
+@app.route('/category/<int:category_id>')
+def categoryItems(category_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    items = session.query(Item).filter_by(category_id=category_id)
+    for item in items:
+        print item.name, item.category.name
+    return render_template('category_items.html', items=items)
 
 # If not used as an imported module run following code
 if __name__ == '__main__':

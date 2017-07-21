@@ -1,7 +1,14 @@
 <html>
 
 <body>
+  <div>
+    <h1>Categories</h1>
+    {% for e in catalog %}
+    <li><a href={{url_for('categoryItems', category_id=e.id)}}>{{e.name}}</a></strong></li>
+    {% endfor %}
 
+
+  </div>
   <h1>Test</h1>
 </body>
 
