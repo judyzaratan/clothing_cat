@@ -21,7 +21,7 @@ class Item(Base):
     __tablename__ = 'item'
     id = Column(Integer, primary_key = True)
     name = Column(String)
-    description = (String)
+    description = Column(String)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
 

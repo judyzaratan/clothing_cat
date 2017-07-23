@@ -26,17 +26,27 @@ def catalogCategories():
         print item.name
     return render_template('catalog.html', catalog=catalog)
 
-@app.route('/category/<int:category_id>')
+@app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
 def categoryItems(category_id):
-    category = session.query(Category).filter_by(id=category_id).one()
+    categories = session.query(Category)
     items = session.query(Item).filter_by(category_id=category_id)
     for item in items:
         print item.name, item.category.name
-    return render_template('category_items.html', items=items)
+        return render_template('category_items.html', items=items, categories=categories)
+
+@app.route('/category/<int:category_id>/edit/<int:item_id>/', methods=['GET', 'POST'])
+def editItem(category_id, item_id):
+    item_query = session.query(Item).filter_by(id=item_id).one()
+    prev_name = item_query.name
+    return redirect(url_for('categoryItems',category_id=category_id))
+
+
+
 
 # If not used as an imported module run following code
 if __name__ == '__main__':
     # Server reload on code changes
+    app.secret_key = 'super_secret_key'
     app.debug = True
     #
     app.run(host='0.0.0.0', port=5000)
