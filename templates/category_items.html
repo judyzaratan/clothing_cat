@@ -15,7 +15,7 @@
     <p>e.name, {{e.description}}</p>
     <p>Item name: {{e.name}}, Category: {{e.category.name}}</p>
     <p>Item description: {{e.description}}, Category: {{e.category.name}}</p>
-    <a href='{{url_for('editItem', item_id=e.id, category_id=e.category.id)}}'>Edit</a> {% endfor %}
+    <a href={{url_for('editItem', item_id=e.id, category_id=e.category.id)}}>Edit</a> {% endfor %}
 
 
   </div>

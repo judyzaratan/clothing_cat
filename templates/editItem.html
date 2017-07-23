@@ -3,12 +3,13 @@
 <body>
   <h1> Edit Item </h1>
 
-  <form action="{{url_for('editItem', category_id=category_id, item_id=item_id )}}" method='POST'>
+  <form action={{url_for('editItem', category_id=category_id, item_id=item_id)}} method='POST'>
     <p>Current Item Name: {{item.name}}</p>
-    <p>New Name :</p>
-    <input type='text' size='30' name='name'>
+    <p>New Name :</p> <input type='text' size='30' name='name'>
+    <p>Current Description: {{item.description}}</p>
+    <p>New Description:</p> <input type="text" name="description">
     <input type='submit' value='Change'>
-    <a href='{{url_for('categoryItems', category_id=item.category.id)}}'>Cancel</a>
+    <a href={{url_for('categoryItems', category_id=category_id)}}>Cancel</a>
   </form>
 
 </body>

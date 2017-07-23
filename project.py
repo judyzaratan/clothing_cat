@@ -37,6 +37,14 @@ def categoryItems(category_id):
 @app.route('/category/<int:category_id>/edit/<int:item_id>/', methods=['GET', 'POST'])
 def editItem(category_id, item_id):
     item_query = session.query(Item).filter_by(id=item_id).one()
+    if request.method == 'GET':
+        return render_template('editItem.html', item=item_query, category_id=category_id, item_id=item_id)
+    if request.method == 'POST':
+        if request.form['name']:
+            item_query.name = request.form['name']
+        if request.form['description']:
+            item_query.description = request.form['descripton']
+    item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
     return redirect(url_for('categoryItems',category_id=category_id))
 
