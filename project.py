@@ -49,6 +49,18 @@ def editItem(category_id, item_id):
     return redirect(url_for('categoryItems',category_id=category_id))
 
 
+@app.route('/catalog/add/', methods=['GET', 'POST'])
+def addItem():
+    if request.method == 'POST':
+        newItem = Item(name=request.form['name'],
+                           description=request.form['description'],
+                           category_id=category_id)
+        flash("new menu item created!")
+        session.add(newItem)
+        session.commit()
+        return redirect(url_for('catalogCategories'))
+    else:
+        return render_template('addItem.html')
 
 
 # If not used as an imported module run following code
