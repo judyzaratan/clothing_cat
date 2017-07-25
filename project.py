@@ -28,11 +28,16 @@ def catalogCategories():
 
 @app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
 def categoryItems(category_id):
-    categories = session.query(Category)
-    items = session.query(Item).filter_by(category_id=category_id)
-    for item in items:
-        print item.name, item.category.name
-        return render_template('category_items.html', items=items, categories=categories)
+    if request.method == 'GET':
+        categories = session.query(Category).all()
+        items = session.query(Item).filter_by(category_id=category_id)
+        print items.count()
+        if items.count():
+            for item in items:
+                print item.name, item.category.name
+                return render_template('category_items.html', items=items, categories=categories)
+        else:
+            return render_template('catalog.html', categories=categories)
 
 @app.route('/category/<int:category_id>/edit/<int:item_id>/', methods=['GET', 'POST'])
 def editItem(category_id, item_id):
