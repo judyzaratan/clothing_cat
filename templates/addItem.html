@@ -5,12 +5,11 @@
     <h1>Add an Item</h1>
     <form class="" action="{{url_for('addItem')}}" method="post">
 
-      Name <input type="text" name="">
-      Description <input type="text" name="">
-      Category <input type="text" name="category">
-      <select name="category">
+      Name <input type="text" name="name">
+      Description <input type="text" name="description">
+      <select name="category_id">
         {% for e in categories %}
-        <option value="{{e.name}}">{{e.name}}</option>
+        <option value="{{e.id}}">{{e.name}}</option>
         {% endfor %}
       </select>
       <input type='submit' value='Change'>

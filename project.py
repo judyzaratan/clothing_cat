@@ -57,14 +57,17 @@ def editItem(category_id, item_id):
 @app.route('/catalog/add/', methods=['GET', 'POST'])
 def addItem():
     if request.method == 'POST':
+        print "it got into the post method" + request.method
+        print request.form['name']
+        print request.form['description']
+        print request.form['category_id']
         newItem = Item(name=request.form['name'],
                            description=request.form['description'],
-                           category_id=category_id)
-        flash("new menu item created!")
+                           category_id=int(request.form['category_id']))
         session.add(newItem)
         session.commit()
         return redirect(url_for('catalogCategories'))
-    else:
+    if request.method == 'GET':
         categories = session.query(Category)
         return render_template('addItem.html', categories=categories)
 
