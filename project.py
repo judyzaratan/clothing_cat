@@ -71,6 +71,15 @@ def addItem():
         categories = session.query(Category)
         return render_template('addItem.html', categories=categories)
 
+@app.route('/catalog/delete/<int:item_id>', methods=['GET','POST'])
+def deleteItem(item_id):
+    if request.method == 'GET':
+        item_to_delete = session.query(Item).filter_by(id=item_id).one()
+        return render_template('deleteItem.html', item=item_to_delete)
+    if request.method == 'POST':
+        item_to_delete = session.query(Item).filter_by(id=item_id).one()
+        session.delete(item_to_delete)
+        return redirect(url_for('catalogCategories'))
 
 # If not used as an imported module run following code
 if __name__ == '__main__':

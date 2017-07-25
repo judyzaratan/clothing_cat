@@ -12,11 +12,15 @@
       <a href={{url_for('addItem')}}>Add an Item to this Category</a>
   </div>
   <div>
-    <h1>Items in Category</h1> {% for e in items %}
+    <h1>Items in Category</h1>
+    {% for e in items %}
     <p>e.name, {{e.description}}</p>
     <p>Item name: {{e.name}}, Category: {{e.category.name}}</p>
     <p>Item description: {{e.description}}, Category: {{e.category.name}}</p>
-    <a href={{url_for('editItem', item_id=e.id, category_id=e.category.id)}}>Edit</a> {% endfor %}
+    <a href={{url_for('editItem', item_id=e.id, category_id=e.category.id)}}>Edit</a> 
+    <a href={{url_for('deleteItem', item_id=e.id)}}>Delete</a>
+    {% endfor %}
+
   </div>
 </body>
 
