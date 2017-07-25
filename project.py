@@ -65,7 +65,8 @@ def addItem():
         session.commit()
         return redirect(url_for('catalogCategories'))
     else:
-        return render_template('addItem.html')
+        categories = session.query(Category)
+        return render_template('addItem.html', categories=categories)
 
 
 # If not used as an imported module run following code
