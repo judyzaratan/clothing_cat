@@ -1,18 +1,16 @@
 <html>
-
 <body>
   <div>
     <h1>Categories</h1>
     {% for e in catalog %}
-    <li><a href={{url_for('categoryItems', category_id=e.id)}}>{{e.name}}</a></strong></li>
+    <li>
+        <a href={{url_for('categoryItems', category_id=e.id)}}>{{e.name}}</a>
+    </li>
     {% endfor %}
-
-
   </div>
+
   <div class="">
-      <h1><a href={{url_for('addItem')}}>Add an Item</a></h1>
+    <h1><a href={{url_for('addItem')}}>Add an Item</a></h1>
   </div>
-  <h1>Test</h1>
 </body>
-
 </html>

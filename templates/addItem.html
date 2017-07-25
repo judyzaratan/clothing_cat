@@ -3,15 +3,17 @@
 <body>
   <div>
     <h1>Add an Item</h1>
-    <form class="" action="{{url_for('addItem')}}" method="post">
 
+    <form class="" action="{{url_for('addItem')}}" method="post">
       Name <input type="text" name="name">
       Description <input type="text" name="description">
+
       <select name="category_id">
         {% for e in categories %}
         <option value="{{e.id}}">{{e.name}}</option>
         {% endfor %}
       </select>
+
       <input type='submit' value='Change'>
       <a href={{url_for('catalogCategories')}}>Cancel</a>
     </form>
