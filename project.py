@@ -20,10 +20,6 @@ session = DBSession()
 def catalogCategories():
     catalog = session.query(Category)
     items = session.query(Item)
-    for item in items:
-        print item.name, item.category.name
-    for item in catalog:
-        print item.name
     return render_template('catalog.html', catalog=catalog)
 
 @app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
@@ -31,30 +27,22 @@ def categoryItems(category_id):
     if request.method == 'GET':
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category_id)
-        print items.count()
         if items.count():
-            for item in items:
-                print item.name, item.category.name
-                return render_template('category_items.html', items=items, categories=categories)
+            return render_template('category_items.html', items=items, categories=categories)
         else:
             return render_template('catalog.html', categories=categories)
 
 @app.route('/category/<int:category_id>/edit/<int:item_id>/', methods=['GET', 'POST'])
 def editItem(category_id, item_id):
-    print request.method
     item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
     if request.method == 'GET':
         return render_template('editItem.html', item=item_query, category_id=category_id, item_id=item_id)
     if request.method == 'POST':
-        print request.form['name']
-        print request.form['description']
         if request.form['name']:
             item_query.name = request.form['name']
-            print item_query.name
         if request.form['description']:
             item_query.description = request.form['description']
-        print item_query.description, "new description"
         session.commit()
         return redirect(url_for('categoryItems',category_id=category_id))
 
@@ -62,10 +50,6 @@ def editItem(category_id, item_id):
 @app.route('/catalog/add/', methods=['GET', 'POST'])
 def addItem():
     if request.method == 'POST':
-        print "it got into the post method" + request.method
-        print request.form['name']
-        print request.form['description']
-        print request.form['category_id']
         newItem = Item(name=request.form['name'],
                            description=request.form['description'],
                            category_id=int(request.form['category_id']))
