@@ -4,10 +4,10 @@
   <form action={{url_for('editItem', category_id=category_id, item_id=item_id)}} method='POST'>
     <p>Current Item Name: {{item.name}}</p>
     <p>New Name :</p>
-    <input type='text' size='30' name='name'>
+    <input type='text' size='30' name='name' value="{{item.name}}">
     <p>Current Description: {{item.description}}</p>
     <p>New Description:</p>
-    <input type="text" name="description">
+    <input type="text" name="description" value="{{item.description}}">
     <input type='submit' value='Change'>
     <a href={{url_for( 'categoryItems', category_id=category_id)}}>Cancel</a>
   </form>
