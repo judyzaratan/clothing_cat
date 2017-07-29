@@ -1,11 +1,17 @@
 from flask import Flask, render_template, url_for, request, redirect,\
     flash, jsonify
 
+app = Flask(__name__)
+
+# Anti Forgery State Token imports
+from flask import session as login_session
+import random, string
+
+# Database imports
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Item
 
-app = Flask(__name__)
 # Create an instance of the Flask class with name of running application
 engine = create_engine('sqlite:///catalog.db')
 Base.metadata.bind = engine
@@ -78,6 +84,14 @@ def deleteItem(item_id):
         item_to_delete = session.query(Item).filter_by(id=item_id).one()
         session.delete(item_to_delete)
         return redirect(url_for('catalogCategories'))
+
+
+# Anti Forgery State Token for CSRF
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
+    return "The current session state is %s" %login_session['state']
 
 
 # If not used as an imported module run following code
