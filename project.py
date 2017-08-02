@@ -87,11 +87,13 @@ def deleteItem(item_id):
 
 
 # Anti Forgery State Token for CSRF
+# Create a state variable that is passed to the client
+
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
-    return "The current session state is %s" %login_session['state']
+    return render_template('login.html')
 
 
 # If not used as an imported module run following code
