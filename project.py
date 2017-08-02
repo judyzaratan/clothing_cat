@@ -30,7 +30,7 @@ from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Category, Item, User
 
 # Create an instance of the Flask class with name of running application
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///catalog_with_user.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -43,7 +43,10 @@ session = DBSession()
 def catalogCategories():
     catalog = session.query(Category)
     items = session.query(Item)
-    return render_template('catalog.html', catalog=catalog)
+    if 'username' not in login_session:
+        return render_template('publiccatalog.html', catalog=catalog)
+    else:
+        return render_template('catalog.html', catalog=catalog)
 
 
 @app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
@@ -66,6 +69,10 @@ def editItem(category_id, item_id):
         return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
+    if login_session['user_id'] != item_query.user_id:
+        return "<script>function myFunction() {alert('You are not authorized\
+        to edit this item in the catalog. You are allowed to edit items\
+        you have created');}</script><body onload='myFunction()''>"
     if request.method == 'GET':
         return render_template('editItem.html',
                                item=item_query,
@@ -84,6 +91,10 @@ def editItem(category_id, item_id):
 def addItem():
     if 'username' not in login_session:
         return redirect('/login')
+    if login_session['user_id'] != item_query.user_id:
+        return "<script>function myFunction() {alert('You are not authorized\
+        to edit this item in the catalog. You are allowed to edit items\
+        you have created');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         newItem = Item(name=request.form['name'],
                        description=request.form['description'],
@@ -100,6 +111,11 @@ def addItem():
 def deleteItem(item_id):
     if 'username' not in login_session:
         return redirect('/login')
+    item_query = session.query(Item).filter_by(id=item_id).one()
+    if login_session['user_id'] != item_query.user_id:
+        return "<script>function myFunction() {alert('You are not authorized\
+        to edit this item in the catalog. You are allowed to edit items\
+        you have created');}</script><body onload='myFunction()''>"
     if request.method == 'GET':
         item_to_delete = session.query(Item).filter_by(id=item_id).one()
         return render_template('deleteItem.html', item=item_to_delete)
@@ -190,6 +206,12 @@ def gconnect():
     login_session['picture'] = data['picture']
     print login_session['picture']
     login_session['email'] = data['email']
+
+    user_id = getUserID(login_session['email'])
+    if not(user_id):
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
 
     output = ''
     output += '<h1>Welcome, '

@@ -20,6 +20,8 @@ class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
 
 class Item(Base):
@@ -42,6 +44,6 @@ class Item(Base):
         }
 
 
-engine = create_engine('sqlite:///catalog.db')
+engine = create_engine('sqlite:///catalog_with_user.db')
 
 Base.metadata.create_all(engine)

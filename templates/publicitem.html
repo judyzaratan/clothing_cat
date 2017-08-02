@@ -1,0 +1,20 @@
+<html>
+<body>
+  <div class="">
+    <h1>Categories</h1>
+    {% for e in categories %}
+    <li>
+      <a href={{url_for('categoryItems', category_id=e.id)}}>{{e.name}}</a>
+    </li>
+    {% endfor %}
+  </div>
+  <div>
+    <h1>Items in Category</h1>
+    {% for e in items %}
+    <p>Item name: {{e.name}}</p>
+    <p>Item description: {{e.description}}</p>
+    <p>Category: {{e.category.name}}</p>
+    {% endfor %}
+  </div>
+</body>
+</html>
