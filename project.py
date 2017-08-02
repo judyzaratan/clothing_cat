@@ -27,7 +27,7 @@ APPLICATION_NAME = "Restaurant Menu Application"
 # Database imports
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Category, Item
+from database_setup import Base, Category, Item, User
 
 # Create an instance of the Flask class with name of running application
 engine = create_engine('sqlite:///catalog.db')
@@ -188,6 +188,7 @@ def gconnect():
 
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
+    print login_session['picture']
     login_session['email'] = data['email']
 
     output = ''
@@ -230,6 +231,29 @@ def gdisconnect():
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
+
+# User Helper Functions
+def createUser(login_session):
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'],
+                   picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
+
+
 
 # If not used as an imported module run following code
 if __name__ == '__main__':

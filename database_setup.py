@@ -11,7 +11,9 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    username = Column(String(32), index=True)
+    name = Column(String(32), nullable=False)
+    email = Column(String(32), nullable=False)
+    picture = Column(String(150))
 
 
 class Category(Base):
@@ -27,6 +29,8 @@ class Item(Base):
     description = Column(String)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
     @property
     def serialize(self):
