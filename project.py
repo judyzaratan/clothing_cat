@@ -62,6 +62,8 @@ def categoryItems(category_id):
 @app.route('/category/<int:category_id>/edit/<int:item_id>/',
            methods=['GET', 'POST'])
 def editItem(category_id, item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
     if request.method == 'GET':
@@ -80,6 +82,8 @@ def editItem(category_id, item_id):
 
 @app.route('/catalog/add/', methods=['GET', 'POST'])
 def addItem():
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'POST':
         newItem = Item(name=request.form['name'],
                        description=request.form['description'],
@@ -94,6 +98,8 @@ def addItem():
 
 @app.route('/catalog/delete/<int:item_id>', methods=['GET', 'POST'])
 def deleteItem(item_id):
+    if 'username' not in login_session:
+        return redirect('/login')
     if request.method == 'GET':
         item_to_delete = session.query(Item).filter_by(id=item_id).one()
         return render_template('deleteItem.html', item=item_to_delete)
