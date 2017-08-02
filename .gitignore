@@ -3,3 +3,4 @@
 *.pyc
 *.db
 catalog.db-journal
+client_secrets.json
