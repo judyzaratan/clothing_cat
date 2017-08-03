@@ -12,8 +12,7 @@ DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
 
-users = session.query(User).one()
-user = users
+user = User(name="Sporty Sport", email="sports@sporty.com", picture="http://p10cdn4static.sharpschool.com/userfiles/servers/server_195227/image/sports.png")
 # Add Categories
 category1 = Category(name="Tops", user=user)
 session.add(category1)

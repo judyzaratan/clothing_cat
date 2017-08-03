@@ -19,7 +19,7 @@ import requests
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
-APPLICATION_NAME = "Restaurant Menu Application"
+APPLICATION_NAME = "Item Catalog Application"
 
 
 
@@ -69,6 +69,7 @@ def editItem(category_id, item_id):
         return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
+    print item_query.user.name
     if login_session['user_id'] != item_query.user_id:
         return "<script>function myFunction() {alert('You are not authorized\
         to edit this item in the catalog. You are allowed to edit items\
@@ -91,14 +92,11 @@ def editItem(category_id, item_id):
 def addItem():
     if 'username' not in login_session:
         return redirect('/login')
-    if login_session['user_id'] != item_query.user_id:
-        return "<script>function myFunction() {alert('You are not authorized\
-        to edit this item in the catalog. You are allowed to edit items\
-        you have created');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         newItem = Item(name=request.form['name'],
                        description=request.form['description'],
-                       category_id=int(request.form['category_id']))
+                       category_id=int(request.form['category_id']),
+                       user_id=login_session['user_id'])
         session.add(newItem)
         session.commit()
         return redirect(url_for('catalogCategories'))

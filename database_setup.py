@@ -19,19 +19,19 @@ class User(Base):
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    name = Column(String(32),nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
 
 
 class Item(Base):
     __tablename__ = 'item'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String(20), nullable=False)
     description = Column(String)
-    category_id = Column(Integer, ForeignKey('category.id'))
+    category_id = Column(Integer, ForeignKey('category.id'),nullable=False)
     category = relationship(Category)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'),nullable=False)
     user = relationship(User)
 
     @property
