@@ -1,25 +1,26 @@
-<html>
-<body>
-  <div class="">
-    <h1>Categories</h1>
-    {% for e in categories %}
-    <li>
-      <a href={{url_for('categoryItems', category_id=e.id)}}>{{e.name}}</a>
-    </li>
-    {% endfor %}
+{% extends "base.html" %}
+{% block container %}
+<div class="container catalog">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Categories</h1>
+        {% for e in categories %}
+        <li>
+        <a href="{{url_for( 'categoryItems', category_id=e.id)}}">{{e.name}}</a>
+        </li>
+        {% endfor %}
+    </div>
+    <div class="col-md-8">
+      <a href="{{url_for( 'addItem')}}">Add an Item to this Category</a>
+      <h1>Items in Category</h1>
+      {% for e in items %}
+      <p>Item name: {{e.name}}</p>
+      <p>Item description: {{e.description}}</p>
+      <p>Category: {{e.category.name}}</p>
+      <a href="{{url_for('editItem', item_id=e.id, category_id=e.category.id)}}">Edit</a>
+      <a href="{{url_for('deleteItem', item_id=e.id)}}">Delete</a>
+      {% endfor %}
+    </div>
   </div>
-  <div class="">
-    <a href={{url_for('addItem')}}>Add an Item to this Category</a>
-  </div>
-  <div>
-    <h1>Items in Category</h1>
-    {% for e in items %}
-    <p>Item name: {{e.name}}</p>
-    <p>Item description: {{e.description}}</p>
-    <p>Category: {{e.category.name}}</p>
-    <a href={{url_for('editItem', item_id=e.id, category_id=e.category.id)}}>Edit</a>
-    <a href={{url_for('deleteItem', item_id=e.id)}}>Delete</a>
-    {% endfor %}
-  </div>
-</body>
-</html>
+</div>
+{% endblock %}
