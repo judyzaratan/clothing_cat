@@ -6,12 +6,12 @@
       <h1>Categories</h1>
         {% for e in categories %}
         <li>
-        <a href="{{url_for( 'categoryItems', category_id=e.id)}}">{{e.name}}</a>
+        <a href="{{url_for('categoryItems', category_id=e.id)}}">{{e.name}}</a>
         </li>
         {% endfor %}
     </div>
     <div class="col-md-8">
-      <a href="{{url_for( 'addItem')}}">Add an Item to this Category</a>
+      <a href="{{url_for('addItem')}}">Add an Item to this Category</a>
       <h1>Items in Category</h1>
       {% for e in items %}
       <p>Item name: {{e.name}}</p>
