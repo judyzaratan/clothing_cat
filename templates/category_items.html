@@ -4,21 +4,21 @@
   <div class="row">
     <div class="col-md-4">
       <h1>Categories</h1>
-        {% for e in categories %}
+        {% for category in categories %}
         <li>
-        <a href="{{url_for('categoryItems', category_id=e.id)}}">{{e.name}}</a>
+        <a href="{{url_for('categoryItems', category_id=category.id)}}">{{category.name}}</a>
         </li>
         {% endfor %}
     </div>
     <div class="col-md-8">
       <a href="{{url_for('addItem')}}">Add an Item to this Category</a>
       <h1>Items in Category</h1>
-      {% for e in items %}
-      <p>Item name: {{e.name}}</p>
-      <p>Item description: {{e.description}}</p>
-      <p>Category: {{e.category.name}}</p>
-      <a href="{{url_for('editItem', item_id=e.id, category_id=e.category.id)}}">Edit</a>
-      <a href="{{url_for('deleteItem', item_id=e.id)}}">Delete</a>
+      {% for item in items %}
+      <p>Item name: {{item.name}}</p>
+      <p>Item description: {{item.description}}</p>
+      <p>Category: {{item.category.name}}</p>
+      <a class="btn btn-default" href="{{url_for('editItem', item_id=item.id, category_id=item.category.id)}}">Edit</a>
+      <a class="btn btn-default" href="{{url_for('deleteItem', item_id=item.id)}}">Delete</a>
       {% endfor %}
     </div>
   </div>

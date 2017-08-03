@@ -1,23 +1,17 @@
-<html>
-
-<body>
-  <div>
+{% extends "base.html" %}
+{% block container %}
+  <div class="container" >
     <h1>Add an Item</h1>
-
-    <form class="" action="{{url_for('addItem')}}" method="post">
+    <form action="{{url_for('addItem')}}" method="post">
       Name <input type="text" name="name">
       Description <input type="text" name="description">
-
       <select name="category_id">
-        {% for e in categories %}
-        <option value="{{e.id}}">{{e.name}}</option>
+        {% for category in categories %}
+        <option value="{{category.id}}">{{category.name}}</option>
         {% endfor %}
       </select>
-
-      <input type='submit' value='Change'>
-      <a href={{url_for('catalogCategories')}}>Cancel</a>
+        <input class="btn btn-default" type="submit" value="Add">
+        <a class="btn btn-default" href="{{url_for('catalogCategories')}}">Cancel</a>
     </form>
   </div>
-</body>
-
-</html>
+{% endblock %}
