@@ -1,3 +1,25 @@
+{% extends "base.html" %} {% block container %}
+<div class="container catalog">
+
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Categories</h1> {% for category in catalog %}
+      <ul>
+        <li>
+          <a href="{{url_for('categoryItems', category_id=category.id)}}">{{category.name}}</a>
+        </li>
+      </ul>
+      {% endfor %}
+    </div>
+    <div class="col-md-8">
+      <h1><a href="{{url_for('addItem')}}">Add an Item</a></h1>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!--
+
 <html>
 <body>
   <div>
@@ -13,4 +35,4 @@
     <h1><a href={{url_for('addItem')}}>Add an Item</a></h1>
   </div>
 </body>
-</html>
+</html> -->

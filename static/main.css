@@ -1,0 +1,15 @@
+h1 {
+  color: red;
+}
+ul {
+  list-style-type: none;
+  color: red;
+}
+
+
+li {
+  color: red;
+}
+.catalog {
+  padding-top: 60px;
+}

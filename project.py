@@ -43,11 +43,7 @@ session = DBSession()
 def catalogCategories():
     catalog = session.query(Category)
     items = session.query(Item)
-    if 'username' not in login_session:
-        return render_template('publiccatalog.html', catalog=catalog)
-    else:
-        return render_template('catalog.html', catalog=catalog)
-
+    return render_template('catalog.html', catalog=catalog)
 
 @app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
 def categoryItems(category_id):
@@ -244,6 +240,7 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['user_id']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
