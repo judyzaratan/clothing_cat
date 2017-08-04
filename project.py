@@ -50,11 +50,11 @@ def categoryItems(category_id):
     if request.method == 'GET':
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category_id)
-        print items.count()
-        # if items.count():
+        category = session.query(Category).filter_by(id=category_id).one()
         return render_template('category_items.html',
                                items=items,
-                               categories=categories)
+                               categories=categories,
+                               category=category)
 
 
 

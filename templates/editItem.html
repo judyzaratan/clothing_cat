@@ -1,21 +1,26 @@
 {% extends "base.html" %}
 {% block container %}
 <div class="container catalog">
-<h1> Edit Item </h1>
+  <div class="panel panel-default">
+
+<div class="panel-heading">
+  <h1> Edit Item </h1>
+
+</div>
+<div class="panel-body">
+
 <form action="{{url_for('editItem', category_id=category_id, item_id=item_id)}}" method="POST">
   <div class="form-group">
-    <p>Current Item Name: {{item.name}}</p>
-    <p>New Name:</p>
+    <p>Name</p>
     <input type="text" size="30" name="name" value="{{item.name}}">
-
   </div>
   <div class="form-group">
-    <p>Current Description: {{item.description}}</p>
-    <p>New Description:</p><input type="text" name="description" value="{{item.description}}">
-
+    <p>Description</p><input type="text" name="description" value="{{item.description}}">
   </div>
   <input class="btn btn-default" type="submit" value="Submit">
   <a class="btn btn-default" href="{{url_for('categoryItems', category_id=category_id)}}">Cancel</a>
 </form>
+</div>
+</div>
 </div>
 {% endblock %}
