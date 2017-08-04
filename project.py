@@ -218,6 +218,13 @@ def gconnect():
     print "done!"
     return output
 
+@app.route('/categories/json')
+def get_JSON():
+    categories = session.query(Category).all()
+    for i in categories:
+        session.query(Item).filter_by(category_id=i.id)
+    return jsonify(Categories=[i.serialize for i in categories])
+
 @app.route('/gdisconnect')
 def gdisconnect():
     access_token = login_session.get('access_token')
