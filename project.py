@@ -64,10 +64,10 @@ def getcategoryJSON(category_id):
     return jsonify(Items=[i.serialize for i in category])
 # return jsonify(Categories=[i.serialize for i in categories])
 
-@app.route('/categories/json', methods=['GET'])
-def getcategoriesJSON():
-    categories = session.query(Category).all()
-    return jsonify(Categories=[i.serialize for i in categories])
+@app.route('/category/<int:category_id>/item/<int:item_id>/json', methods=['GET'])
+def getitemJSON(category_id, item_id):
+    item = session.query(Item).filter_by(id=item_id).one()
+    return jsonify(Item=item.serialize)
 
 @app.route('/category/<int:category_id>/edit/<int:item_id>/',
            methods=['GET', 'POST'])
