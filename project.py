@@ -57,6 +57,17 @@ def categoryItems(category_id):
                                category=category)
 
 
+@app.route('/category/<int:category_id>/item/json', methods=['GET'])
+# @app.route('/category/<int:category_id>/item/<int:item_id>/JSON', methods=['GET'])
+def getcategoryJSON(category_id):
+    category = session.query(Item).filter_by(category_id=category_id)
+    return jsonify(Items=[i.serialize for i in category])
+# return jsonify(Categories=[i.serialize for i in categories])
+
+@app.route('/categories/json', methods=['GET'])
+def getcategoriesJSON():
+    categories = session.query(Category).all()
+    return jsonify(Categories=[i.serialize for i in categories])
 
 @app.route('/category/<int:category_id>/edit/<int:item_id>/',
            methods=['GET', 'POST'])
@@ -218,7 +229,7 @@ def gconnect():
     print "done!"
     return output
 
-@app.route('/categories/json')
+@app.route('/catalog/json')
 def get_JSON():
     categories = session.query(Category).all()
     for i in categories:
