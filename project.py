@@ -45,17 +45,17 @@ def catalogCategories():
     items = session.query(Item)
     return render_template('catalog.html', catalog=catalog)
 
-@app.route('/category/<int:category_id>/', methods=['GET', 'POST'])
+@app.route('/category/<int:category_id>/', methods=['GET'])
 def categoryItems(category_id):
     if request.method == 'GET':
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category_id)
-        if items.count():
-            return render_template('category_items.html',
-                                   items=items,
-                                   categories=categories)
-        else:
-            return render_template('catalog.html', categories=categories)
+        print items.count()
+        # if items.count():
+        return render_template('category_items.html',
+                               items=items,
+                               categories=categories)
+
 
 
 @app.route('/category/<int:category_id>/edit/<int:item_id>/',

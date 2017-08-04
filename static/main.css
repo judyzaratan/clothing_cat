@@ -1,3 +1,7 @@
+.catalog {
+  padding-top: 60px;
+}
+
 h1 {
   color: red;
 }
@@ -9,7 +13,4 @@ ul {
 
 li {
   color: red;
-}
-.catalog {
-  padding-top: 60px;
 }

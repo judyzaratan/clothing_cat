@@ -2,18 +2,20 @@
 {% block container %}
 <div class="container catalog">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 card">
       <h1>Categories</h1>
-      {% for category in catalog %}
       <ul>
+      {% for category in catalog %}
         <li>
           <a href="{{url_for('categoryItems', category_id=category.id)}}">{{category.name}}</a>
         </li>
-      </ul>
       {% endfor %}
+    </ul>
     </div>
     <div class="col-md-8">
-      <h1><a href="{{url_for('addItem')}}">Add an Item</a></h1>
+      {% if 'username' in session %}
+        <h1><a href="{{url_for('addItem')}}">Add an Item</a></h1>
+      {% endif %}
     </div>
   </div>
 </div>
