@@ -12,7 +12,9 @@
       </ul>
     </div>
     <div class="col-md-8">
+      {% if 'username'in session %}
       <a class="btn btn-default glpyhicon glyphicon-plus" href="{{url_for('addItem')}}"> Add an Item</a>
+      {% endif %}
       <h1>Items in {{category.name}}</h1>
       {% for item in items %}
       <div class="panel panel-default">
