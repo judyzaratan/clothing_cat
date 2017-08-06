@@ -43,5 +43,5 @@ Run the following command after step 5.
 |Request                      | Return
 |--------:-------------------:--------------------|
 |/catalog/json| Get all categories and their items|
-|/category/__category_id__/item/json| Get items for a particular category with given category integer
-|/category/__category_id__/item/__item_id__/json| Get information for a particular item with a given category and item ids
+|/category/__category_id__/item/json| Get items for a particular category with given category integer|
+|/category/__category_id__/item/__item_id__/json| Get information for a particular item with a given category and item ids|
