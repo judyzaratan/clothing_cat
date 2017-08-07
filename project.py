@@ -22,6 +22,7 @@ from database_setup import Base, Category, Item, User
 
 app = Flask(__name__)
 
+
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = 'Item Catalog Application'
@@ -35,17 +36,22 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# Following function called HELLO world will be executed if any calls from the
-# server have the route of / or /hello
 @app.route('/')
+@app.route('/catalog')
 def catalogCategories():
-    catalog = session.query(Category)
-    items = session.query(Item)
-    return render_template('catalog.html', catalog=catalog)
+    """ Queries and renders list of categories """
+    catalog = session.query(Category).all()
+    items = session.query(Item).all()
+    category = {'name': 'All'}
+    return render_template('category_items.html',
+                           categories=catalog,
+                           items=items,
+                           category=category)
 
 
 @app.route('/category/<int:category_id>/', methods=['GET'])
 def categoryItems(category_id):
+    """ Queries and renders list of items in a particular category """
     if request.method == 'GET':
         categories = session.query(Category).all()
         items = session.query(Item).filter_by(category_id=category_id)
@@ -58,14 +64,15 @@ def categoryItems(category_id):
 
 @app.route('/category/<int:category_id>/item/json', methods=['GET'])
 def getcategoryJSON(category_id):
+    """ Returns JSON object of a category and items within category """
     category = session.query(Item).filter_by(category_id=category_id)
     return jsonify(Items=[i.serialize for i in category])
-# return jsonify(Categories=[i.serialize for i in categories])
 
 
 @app.route('/category/<int:category_id>/item/<int:item_id>/json',
            methods=['GET'])
 def getitemJSON(category_id, item_id):
+    """ Returns JSON of a single item in a category """
     item = session.query(Item).filter_by(id=item_id).one()
     return jsonify(Item=item.serialize)
 
@@ -73,6 +80,7 @@ def getitemJSON(category_id, item_id):
 @app.route('/category/<int:category_id>/edit/<int:item_id>/',
            methods=['GET', 'POST'])
 def editItem(category_id, item_id):
+    """ Allows user to edit an item in the database """
     if 'username' not in login_session:
         return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
@@ -97,6 +105,7 @@ def editItem(category_id, item_id):
 
 @app.route('/catalog/add/', methods=['GET', 'POST'])
 def addItem():
+    """ Adds new item to database """
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
@@ -114,6 +123,7 @@ def addItem():
 
 @app.route('/catalog/delete/<int:item_id>', methods=['GET', 'POST'])
 def deleteItem(item_id):
+    """ Removes item from database """
     if 'username' not in login_session:
         return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
@@ -129,9 +139,6 @@ def deleteItem(item_id):
         session.delete(item_to_delete)
         return redirect(url_for('catalogCategories'))
 
-
-# Anti Forgery State Token for CSRF
-# Create a state variable that is passed to the client
 
 @app.route('/login')
 def showLogin():
