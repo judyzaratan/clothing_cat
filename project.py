@@ -86,9 +86,10 @@ def editItem(category_id, item_id):
     item_query = session.query(Item).filter_by(id=item_id).one()
     prev_name = item_query.name
     if login_session['user_id'] != item_query.user_id:
-        return "<script>function myFunction() {alert('You are not authorized\
-        to edit this item in the catalog. You are allowed to edit items\
-        you have created');}</script><body onload='myFunction()''>"
+        return "<script>function myFunction() {" \
+        "alert('You are not authorized to edit this item in the catalog. "\
+        "You are allowed to edit items you have created.');}" \
+        "</script><body onload='myFunction()''>"
     if request.method == 'GET':
         return render_template('editItem.html',
                                item=item_query,
@@ -128,9 +129,10 @@ def deleteItem(item_id):
         return redirect('/login')
     item_query = session.query(Item).filter_by(id=item_id).one()
     if login_session['user_id'] != item_query.user_id:
-        return "<script>function myFunction() {alert('You are not authorized\
-        to edit this item in the catalog. You are allowed to edit items\
-        you have created');}</script><body onload='myFunction()''>"
+        return "<script>function myFunction() {"\
+        "alert('You are not authorized to delete this item in the catalog. "\
+        "You are allowed to delete items you have created.');}"\
+        "</script><body onload='myFunction()''>"
     if request.method == 'GET':
         item_to_delete = session.query(Item).filter_by(id=item_id).one()
         return render_template('deleteItem.html', item=item_to_delete)
@@ -197,7 +199,6 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps('Token\'s client ID does not match app\'s.'), 401)
-        print 'Token\'s client ID does not match app\'s.'
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -242,7 +243,6 @@ def gconnect():
                 -webkit-border-radius: 150px;\
                 -moz-border-radius: 150px;"> '
     flash('you are now logged in as %s' % login_session['username'])
-    print 'done!'
     return output
 
 
@@ -257,21 +257,15 @@ def get_JSON():
 def gdisconnect():
     access_token = login_session.get('access_token')
     if access_token is None:
-        print 'Access Token is None'
         response = make_response(json.dumps('Current user\
                                  not connected.'),
                                  401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    print 'In gdisconnect access token is %s', access_token
-    print 'User name is: '
-    print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' \
           % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    print 'result is '
-    print result
     if result['status'] == '200':
         del login_session['access_token']
         del login_session['gplus_id']
