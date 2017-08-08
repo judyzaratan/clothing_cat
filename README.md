@@ -1,11 +1,11 @@
 # Item Catalog #
-------
+---
 ## Description ##
-
+---
 An application that displays categorized items.  This application utilizes Google Sign in for authentication and registration for users.  Registered users have the ability to create, edit, or delete items.  
-------
+---
 ## Requirements ##
-------
+---
 * [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * Python 2.7
@@ -16,37 +16,47 @@ An application that displays categorized items.  This application utilizes Googl
      replace data attribute "clientid" with your cliend_id provided by Google.  
 
 ## Installation ##
-___
-
+---
 1. Fork or clone [item-catalog] repository to your workstation
 2. In terminal, go into item-catalog folder
 3. Run following vagrant commands to allow VM to install required dependencies, set up environment.
 (Side note: vagrant script was copied from Udacity's FSND VM repository [here](https://github.com/udacity/fullstack-nanodegree-vm))
 
-  `vagrant up`
+  ```
+  vagrant up
+  ```
 
 4. Log into virtual machine
 
-  `vagrant up`
+  ```
+  vagrant ssh
+  ```
 
 5. After VM is up and running, change directory access repository files
 
-  `cd /vagrant`
+  ```
+  cd /vagrant
+  ```
 
 6. Within virtual machine terminal, to see application in action, type following command:
 
-  `python project.py`
+  ```
+  python project.py
+  ```
 
 7. Open browser and type in: http://localhost:5000
 
 #### Optional ####
+---
 To allow view website with data, you may fill the database with database populator.
 
 Run the following command after step 5 and continue thereafter.
-  `python db_populator.py`
+```
+python db_populator.py
+```
 
 ## API Endpoints ##
------------------------------
+---
 Request                      | Return
 ---|---
 /catalog/json| Get all categories and their items
