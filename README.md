@@ -18,8 +18,9 @@ An application that displays categorized items.  This application utilizes Googl
 ___
 
 1. Fork or clone [item-catalog] repository to your workstation
-2. In workstation terminal, go into item-catalog folder
+2. In terminal, go into item-catalog folder
 3. Run following vagrant commands to allow VM to install required dependencies, set up environment.
+(Side note: vagrant script was copied from Udacity's FSND VM repository [here](https://github.com/udacity/fullstack-nanodegree-vm))
 
   `vagrant up`
 
