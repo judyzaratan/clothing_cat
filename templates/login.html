@@ -10,19 +10,21 @@
   </script>
 </head>
 <body>
-
+  <div id="result">
+  </div>
   <!-- Google sign in button  -->
   <div id="signInButton">
     <span class="g-signin" data-scope="openid email" data-clientid="583394685528-59fd9kqlnuvmd765je8r737u5osti4ll.apps.googleusercontent.com" data-redirecturi="postmessage" data-accesstype="offline" data-cookiepolicy="single_host_origin" data-callback="signInCallback" data-approvalprompt="force">
     </span>
-    <div id="result">
-    </div>
+
     <script type="text/javascript">
       function signInCallback(authResult) {
         if (authResult['code']) {
           // Hide the sign-in button now that the user is authorized
-          $('#signinButton').attr('style', 'display: none');
-          // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main  page
+          $('#signInButton').attr('style', 'display: none');
+          // Send the one-time-use code to the server, if the server responds,
+          // write a 'login successful' message to the web page and
+          // then redirect back to the main  page
           $.ajax({
             type: 'POST',
             //state token as argument to verify CSRF to server

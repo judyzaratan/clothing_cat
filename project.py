@@ -142,6 +142,8 @@ def deleteItem(item_id):
 
 @app.route('/login')
 def showLogin():
+    """ Generates a random state session token and sends to user when\
+     login is requested"""
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
@@ -150,6 +152,8 @@ def showLogin():
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """ Process taken after user authenticates using Google Sign In and\
+    validates access token and state token"""
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -217,6 +221,7 @@ def gconnect():
 
     data = answer.json()
 
+    # Store profile info
     login_session['username'] = data['name']
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
@@ -243,9 +248,8 @@ def gconnect():
 
 @app.route('/catalog/json')
 def get_JSON():
+    """ Return JSON for entire list of items in database """
     categories = session.query(Category).all()
-    for i in categories:
-        session.query(Item).filter_by(category_id=i.id)
     return jsonify(Categories=[i.serialize for i in categories])
 
 
@@ -288,6 +292,7 @@ def gdisconnect():
 
 # User Helper Functions
 def createUser(login_session):
+    """ Creates a new user after user authenticates via Google Sign In"""
     newUser = User(name=login_session['username'],
                    email=login_session['email'],
                    picture=login_session['picture'])
@@ -310,7 +315,7 @@ def getUserID(email):
         return None
 
 
-# If not used as an imported module run following code
+# If not used as an imported module, run following code
 if __name__ == '__main__':
     # Server reload on code changes
     app.secret_key = 'super_secret_key'
