@@ -1,9 +1,10 @@
-## Item Catalog ##
+# Item Catalog #
 ------
-### Description ###
+## Description ##
+
 An application that displays categorized items.  This application utilizes Google Sign in for authentication and registration for users.  Registered users have the ability to create, edit, or delete items.  
 ------
-### Requirements ###
+## Requirements ##
 ------
 * [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
@@ -14,7 +15,7 @@ An application that displays categorized items.  This application utilizes Googl
   3. Under '/templates/login.html' - div tag with id ="signInButton",
      replace data attribute "clientid" with your cliend_id provided by Google.  
 
-### Installation ###
+## Installation ##
 ___
 
 1. Fork or clone [item-catalog] repository to your workstation
@@ -38,13 +39,13 @@ ___
 
 7. Open browser and type in: http://localhost:5000
 
-##### Optional #####
+#### Optional ####
 To allow view website with data, you may fill the database with database populator.
 
 Run the following command after step 5 and continue thereafter.
   `python db_populator.py`
 
-### API Endpoints ###
+## API Endpoints ##
 -----------------------------
 Request                      | Return
 ---|---
