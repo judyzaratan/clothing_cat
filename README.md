@@ -2,10 +2,11 @@
 ---
 ## Description ##
 ---
+
   An application that displays categorized items.  This application utilizes \
 Google Sign in for authentication and registration for users.  Registered \
 users have the ability to create, edit, or delete items.  
----
+
 ## Requirements ##
 ---
 * [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
