@@ -3,9 +3,7 @@
 ## Description ##
 ---
 
-  An application that displays categorized items.  This application utilizes \
-Google Sign in for authentication and registration for users.  Registered \
-users have the ability to create, edit, or delete items.  
+  An application that displays categorized items.  This application utilizes Google Sign in for authentication and registration for users.  Registered users have the ability to create, edit, or delete items.  
 
 ## Requirements ##
 ---
@@ -22,10 +20,8 @@ users have the ability to create, edit, or delete items.
 ---
 1. Fork or clone [item-catalog] repository to your workstation
 2. In terminal, go into item-catalog folder
-3. Run following vagrant commands to allow VM to install required \
-dependencies, set up environment.
-(Side note: Vagrantfile was copied from Udacity's FSND VM \
-repository [here](https://github.com/udacity/fullstack-nanodegree-vm))
+3. Run following vagrant commands to allow VM to install required dependencies, set up environment.
+(Side note: Vagrantfile was copied from Udacity's FSND VM repository [here](https://github.com/udacity/fullstack-nanodegree-vm))
 
   ```
   vagrant up
@@ -53,8 +49,7 @@ repository [here](https://github.com/udacity/fullstack-nanodegree-vm))
 
 #### Optional ####
 ---
-To allow view website with data, you may fill the database with \
-database populator.
+To allow view website with data, you may fill the database with database populator.
 
 Run the following command after step 5 and continue with step 6 thereafter.
 ```
@@ -66,7 +61,5 @@ python db_populator.py
 Request                      | Return
 ---|---
 /catalog/json| Get all categories and their items
-/category/__category_id__/item/json| Get items for a particular category \
-with given category integer
-/category/__category_id__/item/__item_id__/json| Get information for a \
-particular item with a given category and item ids
+/category/__category_id__/item/json| Get items for a particular category with given category integer
+/category/__category_id__/item/__item_id__/json| Get information for a particular item with a given category and item ids
