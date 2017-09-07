@@ -5,6 +5,7 @@ from flask import Flask, render_template, url_for, request, redirect,\
 from flask import session as login_session
 import random
 import string
+import os
 
 # GConnect imports
 from oauth2client.client import flow_from_clientsecrets
@@ -314,4 +315,5 @@ if __name__ == '__main__':
     # Server reload on code changes
     app.secret_key = 'super_secret_key'
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
